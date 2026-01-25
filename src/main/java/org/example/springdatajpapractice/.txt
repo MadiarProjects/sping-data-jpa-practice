@@ -1,0 +1,24 @@
+GET /songs/search
+?q=НАЗВАНИЕ
+&genre=ЖАНР1,ЖАНР2
+&year=2024,2019
+&minplaycount=1500000
+&artist=1,2,3,4
+&artistcountry=СТРАНА,СТРАНА2
+
+{
+    "id": 1,
+    "title": "НАЗВАНИЕ",
+    "duration": 290,
+    "genre": "ROCK",
+    "createdAt": "2024-12-12",
+    "releaseYear": "2024",
+    "playcount": "230000000",
+    "artist": {
+        "id": 1,
+        "firstName": "ИМЯ АРТИСТА",
+        "lastname": "ФАМИЛИЯ АРТИСТА",
+        "email": "ПОЧТА",
+        "country": "KAZAKHSTAN"
+    }
+}
