@@ -1,15 +1,13 @@
 package org.example.springdatajpapractice.model;
-package com.example.springdatajpamadiar.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import org.apache.catalina.User;
+
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Getter
 @Setter

@@ -1,12 +1,10 @@
 package org.example.springdatajpapractice.repository;
-import com.example.springdatajpamadiar.model.Task;
-import com.example.springdatajpamadiar.model.Task.Priority;
+import org.example.springdatajpapractice.model.Task;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
-import static com.example.springdatajpamadiar.model.Task.Status;
 
 public interface TaskRepository extends JpaRepository<Task, Integer> {
     List<Task> findByAssignedToId(int assignedToId);
@@ -15,11 +13,11 @@ public interface TaskRepository extends JpaRepository<Task, Integer> {
     List<Task> findByAssignedToIdIn(List<Integer> assignedTo);
     //  select * from tasks where assigned_to in (1,2,3)
 
-    List<Task> findByStatus(Status status);
+    List<Task> findByStatus(Task.Status status);
 
-    List<Task> findByStatusIn(List<Status> statuses);
+    List<Task> findByStatusIn(List<Task.Status> statuses);
 
-    List<Task> findByAssignedToIdInAndStatusIn(List<Integer> assignedTo, List<Status> statuses);
+    List<Task> findByAssignedToIdInAndStatusIn(List<Integer> assignedTo, List<Task.Status> statuses);
 
     @Query("""
             select t from Task t
@@ -28,6 +26,6 @@ public interface TaskRepository extends JpaRepository<Task, Integer> {
               and (:priority is null or t.priority in (:priority))
             """)
     List<Task> findByMultipleCondition(List<Integer> assignedTo,
-                                       List<Status> statuses,
-                                       List<Priority> priority);
+                                       List<Task.Status> statuses,
+                                       List<Task.Priority> priority);
 }

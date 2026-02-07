@@ -53,3 +53,78 @@ INSERT INTO songs
                                                                              ('Golden Skies',     215, 'POP',   '2023-05-16', 2023, 188000, 9),
                                                                              ('Northern Lights',  240, 'ROCK',  '2020-01-13', 2020, 112000, 10),
                                                                              ('Last Horizon',     250, 'ROCK',  '2024-04-02', 2024,  67000, 10);
+
+create table tasks
+(
+    id          bigserial
+        primary key,
+    title       varchar(100)  not null,
+    description varchar(5000) not null,
+    priority    varchar(20)   not null,
+    status      varchar(20)   not null,
+    assigned_to integer       not null references users (id),
+    created_by  integer       not null references users (id),
+    start_date  date          not null,
+    end_date    date          not null,
+    created_at  timestamp     not null
+);
+
+
+--task2
+create table hosts
+   (
+       id           serial primary key,
+       first_name   varchar(50) not null,
+       last_name    varchar(50) not null,
+       email        varchar(100) not null unique,
+       country      varchar(50) not null,
+       subscribers  integer not null default 0
+   );
+
+create table podcasts
+(
+    id            serial primary key,
+    title         varchar(150) not null,
+    description   text,
+    category      varchar(40) not null, -- TECH, BUSINESS, EDUCATION
+    language      varchar(10) not null, -- EN, RU, KZ
+    duration      integer not null,      -- минуты
+    release_year  integer not null,
+    host_id       integer references hosts(id) not null
+);
+-- hosts
+insert into hosts (first_name, last_name, email, country, subscribers)
+values
+    ('Alex', 'Johnson', 'alex.johnson@mail.com', 'USA', 12000),
+    ('Ivan', 'Petrov', 'ivan.petrov@mail.ru', 'Russia', 8500),
+    ('Aruzhan', 'Sadykova', 'aruzhan.s@mail.kz', 'Kazakhstan', 4300);
+
+-- podcasts
+insert into podcasts (title, description, category, language, duration, release_year, host_id)
+values
+    ('Tech Today', 'Latest news and trends in technology', 'TECH', 'EN', 45, 2023, 1),
+    ('Business Inside', 'How modern businesses grow', 'BUSINESS', 'EN', 60, 2022, 1),
+    ('Образование просто', 'Разговоры об обучении и саморазвитии', 'EDUCATION', 'RU', 50, 2021, 2),
+    ('Qazaq Education', 'Подкаст про образование в Казахстане', 'EDUCATION', 'KZ', 40, 2024, 3);
+
+insert into podcasts (title, description, category, language, duration, release_year, host_id)
+values
+    ('Cloud Basics', 'Основы облачных технологий', 'TECH', 'EN', 40, 2021, 1),
+    ('Java Deep Dive', 'Глубокое погружение в Java', 'TECH', 'EN', 70, 2023, 1),
+    ('Microservices Talk', 'Архитектура микросервисов', 'TECH', 'EN', 55, 2024, 1),
+
+    ('Marketing 101', 'Базовый маркетинг для бизнеса', 'BUSINESS', 'EN', 45, 2020, 2),
+    ('Продажи без воды', 'Практика эффективных продаж', 'BUSINESS', 'RU', 50, 2022, 2),
+
+    ('Учись учиться', 'Методы эффективного обучения', 'EDUCATION', 'RU', 35, 2019, 3),
+    ('Data Science Start', 'Введение в Data Science', 'EDUCATION', 'EN', 60, 2023, 3),
+
+    ('Digital Qazaq', 'Цифровые технологии на казахском', 'TECH', 'KZ', 42, 2024, 3),
+    ('Soft Skills', 'Коммуникация и личная эффективность', 'BUSINESS', 'RU', 38, 2021, 1),
+
+    ('Backend Roadmap', 'Путь backend-разработчика', 'TECH', 'EN', 65, 2022, 2),
+    ('Finance for IT', 'Финансы для айтишников', 'BUSINESS', 'EN', 48, 2023, 1),
+
+    ('История науки', 'Как развивалась наука', 'EDUCATION', 'RU', 55, 2020, 2),
+    ('Learning Fast', 'Как учиться быстрее', 'EDUCATION', 'EN', 33, 2024, 3);
+

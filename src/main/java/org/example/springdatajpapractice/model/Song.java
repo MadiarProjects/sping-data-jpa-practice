@@ -20,6 +20,7 @@ public class Song {
     private Integer id;
     private String title;
     private int duration;
+    @Enumerated(value = EnumType.STRING)
     private Genre genre;
     @Column(name = "created_at")
     private LocalDateTime createdAt;

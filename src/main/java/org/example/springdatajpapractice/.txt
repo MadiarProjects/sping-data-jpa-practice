@@ -22,3 +22,33 @@ GET /songs/search
         "country": "KAZAKHSTAN"
     }
 }
+CODO:TAsk2
+GET /podcasts
+?q=НАЗВАНИЕ
+&category=TECH,BUSINESS
+&language=EN,KZ,RU
+&minDuration=500
+&maxDuration=7000
+&year=2022,2023
+&host=1,2,3,4     — id хостов
+
+
+```
+[
+{
+  "id": 12,
+  "title": "Tech Inside",
+  "description": "Обсуждаем внутренности IT-индустрии",
+  "category": "TECH",
+  "language": "EN",
+  "duration": 55,
+  "releaseYear": 2024,
+  "host": {
+    "id": 3,
+    "firstName": "Alex",
+    "lastName": "Brown",
+    "country": "USA",
+    "subscribers": 120000
+  }
+}
+]```

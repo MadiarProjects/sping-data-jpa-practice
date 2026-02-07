@@ -1,20 +1,16 @@
 package org.example.springdatajpapractice.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-import java.util.List;
-
 @Entity
-
-@Setter
 @Getter
+@Setter
 @ToString
-@Table(name = "artists")
-public class Artist {
+@Table(name = "hosts")
+public class Host {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -25,8 +21,5 @@ public class Artist {
     private String email;
     @Enumerated(value = EnumType.STRING)
     private Country country;
-    @OneToMany(mappedBy = "artist")
-    @JsonIgnore
-    private List<Song> songs;
-
+    private Integer subscribers=0;
 }

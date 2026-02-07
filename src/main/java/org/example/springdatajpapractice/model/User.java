@@ -3,21 +3,23 @@ package org.example.springdatajpapractice.model;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
 
+@Entity
 @Getter
 @Setter
-@ToString
-
-@Entity
 @Table(name = "users")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
-    private String name;
-    @Column(name = "created_at")
-    private LocalDateTime createdAt;
+    private Long id;
+    @Enumerated(value = EnumType.ORDINAL)
+    private Role role;
+    private String login;
+    private String password;
+    @CreationTimestamp
+    @Column(name = "registration_date")
+    private LocalDateTime registrationDate;
 }
