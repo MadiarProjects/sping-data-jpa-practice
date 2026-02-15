@@ -24,10 +24,10 @@ public class ProductMapper {
         productFullDto.setName(product.getName());
         productFullDto.setPrice(product.getPrice());
         productFullDto.setCategory(product.getCategory().getName());
-        OptionAndValueDtoName[] optionAndValueStrings=new OptionAndValueDtoName[product.getValues().size()];
+        ResponseOptionAndValueDto[] optionAndValueStrings=new ResponseOptionAndValueDto[product.getValues().size()];
         for (int i = 0; i <product.getValues().size() ; i++) {
             Value value=product.getValues().get(i);
-            optionAndValueStrings[i]=new OptionAndValueDtoName(value.getOption().getName(),value.getName());
+            optionAndValueStrings[i]=new ResponseOptionAndValueDto(value.getOption().getName(),value.getName());
         }
         productFullDto.setOptionAndValueStrings(optionAndValueStrings);
         return productFullDto;

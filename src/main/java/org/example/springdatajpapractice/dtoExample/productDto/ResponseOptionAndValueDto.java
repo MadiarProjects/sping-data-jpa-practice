@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class OptionAndValueDtoName {
+public class ResponseOptionAndValueDto {
     private String optionName;
     private String valueName;
 }

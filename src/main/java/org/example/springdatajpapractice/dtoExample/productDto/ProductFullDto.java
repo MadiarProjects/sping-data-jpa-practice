@@ -9,5 +9,5 @@ public class ProductFullDto {
     private String name;
     private Double price;
     private String category;
-    private OptionAndValueDtoName[] optionAndValueStrings;
+    private ResponseOptionAndValueDto[] optionAndValueStrings;
 }
