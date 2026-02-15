@@ -2,9 +2,6 @@ package org.example.springdatajpapractice.dtoExample.productDto;
 
 import lombok.Data;
 
-import java.util.HashMap;
-import java.util.Map;
-
 @Data
 public class ProductFullDto {
 
@@ -12,5 +9,5 @@ public class ProductFullDto {
     private String name;
     private Double price;
     private String category;
-    private Map <String,String> options=new HashMap<>();
+    private OptionAndValueDtoName[] optionAndValueStrings;
 }

@@ -24,7 +24,6 @@ import java.util.List;
 public class ProductController {
     private final ProductRepository productRepository;
     private final CategoryRepository categoryRepository;
-    private final OptionRepository optionRepository;
     private final ProductMapper productMapper;
     @PostMapping
     public ProductFullDto create(@RequestBody ProductCreateDto productCreateDto){
@@ -41,7 +40,6 @@ public class ProductController {
                     .filter(o->o.getId().equals(valueShortDto.getOptionId()))
                     .findFirst()
                     .orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND));
-
             Value value=new Value();
             value.setName(valueShortDto.getValueName());
             value.setOption(option);
@@ -54,10 +52,8 @@ public class ProductController {
     @GetMapping
     public List<ProductShortDto> findAll(@RequestParam(defaultValue = "0") Double min, @RequestParam(defaultValue = Integer.MAX_VALUE+"") Double max){
         return productRepository.findByPriceBetween(min,max).stream()
-                .map(product->productMapper.toShortDto(product))
+                .map(productMapper::toShortDto)
                 .toList();
-
-
     }
     @GetMapping("/{id}")
     public ProductFullDto findById(@PathVariable int id){
