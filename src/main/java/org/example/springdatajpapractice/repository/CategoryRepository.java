@@ -5,8 +5,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-public interface CategoryRepository extends JpaRepository<Category, Integer> {
-    // запросные методы
+public interface CategoryRepository extends JpaRepository<Category, Long> {
+    // запросные
     Category findByName(String name); // select c from Category c where c.name = :name
 
     Category findByNameOrId(String name, int id); // select c from Category c where c.name = :name or c.id = :id

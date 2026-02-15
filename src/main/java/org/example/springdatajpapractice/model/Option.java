@@ -4,23 +4,20 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "products")
+@Table(name = "options")
 @Getter
 @Setter
-public class Product {
+public class Option {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    private Double price;
-    //ORM
     @ManyToOne
     @JoinColumn(name = "category_id")
     private Category category;
-    @OneToMany(mappedBy = "product",cascade = CascadeType.PERSIST)
-    private List<Value>values=new ArrayList<>();
+    @OneToMany(mappedBy = "option")
+    private List<Value>values;
 }
