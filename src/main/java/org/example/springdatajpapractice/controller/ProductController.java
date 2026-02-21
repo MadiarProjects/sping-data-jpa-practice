@@ -8,10 +8,14 @@ import org.example.springdatajpapractice.model.Product;
 import org.example.springdatajpapractice.model.Value;
 import org.example.springdatajpapractice.repository.CategoryRepository;
 import org.example.springdatajpapractice.repository.ProductRepository;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -48,8 +52,25 @@ public class ProductController {
     }
 
     @GetMapping
-    public List<ProductShortDto> findAll(@RequestParam(defaultValue = "0") Double min, @RequestParam(defaultValue = Integer.MAX_VALUE + "") Double max) {
-        return productRepository.findByPriceBetween(min, max).stream()
+    public List<ProductShortDto> findAll(
+            @RequestParam(defaultValue = "0") Double min,
+            @RequestParam(defaultValue = Integer.MAX_VALUE + "") Double max,
+            @RequestParam(defaultValue = "1") int page,
+            @RequestParam(defaultValue = "5") int size,
+            @RequestParam(defaultValue = "ASC") Sort.Direction sortDirection,
+            @RequestParam(required = false) String field
+                                         ) {
+        List<String> names=List.of("id","name","price");
+        if (!names.contains(field)){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        }
+
+        if (page<1||size<1 || size>100){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        }
+        Sort sort=Sort.by(sortDirection,field);
+        Pageable pageable= PageRequest.of(page-1,size,sort);
+        return productRepository.findByPriceBetween(min, max,pageable).stream()
                 .map(productMapper::toShortDto)
                 .toList();
     }

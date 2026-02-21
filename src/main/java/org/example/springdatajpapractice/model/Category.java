@@ -1,5 +1,6 @@
 package org.example.springdatajpapractice.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -19,7 +20,9 @@ public class Category {
     private String name;
     //рефлексия использует Hibernate
     @OneToMany(mappedBy = "category")
+    @JsonIgnore
     private List<Product>products;
     @OneToMany(mappedBy = "category",cascade={CascadeType.PERSIST,CascadeType.REMOVE})
+    @JsonIgnore
     private List<Option> options=new ArrayList<>();
 }
