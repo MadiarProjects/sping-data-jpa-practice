@@ -3,7 +3,6 @@ package org.example.springdatajpapractice.model;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,7 +17,10 @@ public class Product {
     private String name;
     private Double price;
     //ORM
-    @ManyToOne
+
+    //eager - немедленная (жадная) загрузка
+    //lazy - отложенная (ленивая) загрузка (нужно удалять то стринг)
+    @ManyToOne(fetch =FetchType.LAZY )
     @JoinColumn(name = "category_id")
     private Category category;
     @OneToMany(mappedBy = "product",cascade = CascadeType.PERSIST)
