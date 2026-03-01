@@ -30,4 +30,6 @@ public interface CategoryRepository extends JpaRepository<Category, Long> {
     // mybatis
     // spring jdbc
     // jpa
+
+    boolean existsByName(String name);
 }
