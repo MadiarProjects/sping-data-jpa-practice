@@ -21,7 +21,7 @@ public interface CategoryRepository extends JpaRepository<Category, Long> {
 
     //для join одним запросом а не отдельным можно передавать несколько обьектов
     @EntityGraph(attributePaths = "options")
-    List<Category> findALl();
+    List<Category> findAll();
 
 
     // GET /products?min=150000&max=250000

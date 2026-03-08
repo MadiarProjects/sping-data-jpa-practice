@@ -76,7 +76,7 @@ public class ProductController {
     }
 
     @GetMapping("/{id}")
-    public ProductFullDto findById(@PathVariable int id) {
+    public ProductFullDto findById(@PathVariable Long id) {
         Product product = productRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
 
@@ -84,7 +84,7 @@ public class ProductController {
     }
 
     @PutMapping("/{id}")
-    public ProductFullDto update(@RequestBody ProductUpdateDto productUpdateDto, @PathVariable int id) {
+    public ProductFullDto update(@RequestBody ProductUpdateDto productUpdateDto, @PathVariable Long id) {
         Product product = productRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
         product.setName(productUpdateDto.getName());
         product.setPrice(productUpdateDto.getPrice());
@@ -100,7 +100,7 @@ public class ProductController {
     }
 
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable int id) {
+    public void delete(@PathVariable Long id) {
         productRepository.deleteById(id);
     }
 }

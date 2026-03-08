@@ -1,5 +1,6 @@
 package org.example.springdatajpapractice.controller;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.apache.coyote.BadRequestException;
 import org.example.springdatajpapractice.dtoExample.categoryDto.CategoryCreateDto;
@@ -27,7 +28,8 @@ import java.util.List;
 public class CategoryController {
     private final CategoryRepository categoryRepository;
     private final CategoryMapper categoryMapper;
-//    @GetMapping
+
+    //    @GetMapping
 //    public List<Category> findAll(
 //            @RequestParam(defaultValue = "1") int page,
 //            @RequestParam(defaultValue = "5") int size,
@@ -44,17 +46,28 @@ public class CategoryController {
 //        return categoryRepository.findByNameContainingIgnoreCase(q,pageable);
 //    }
     @GetMapping
-    public List<Category> findAll(){
-        return categoryRepository.findAll();
+    public List<Category> findAll(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "5") int size) {
+        Page<Category> pageResult = categoryRepository.findAll(PageRequest.of(page, size));
+
+        // List<Category> categoryRepository.findAll()
+        // Page<Category> categoryRepository.findAll(Pageable)
+
+        return pageResult.getContent();
     }
+
+    //    @GetMapping
+//    public List<Category> findAll(){
+//        return categoryRepository.findAll();
+//    }
     @GetMapping("/{id}")
-    public Category findById(@PathVariable Long id){
+    public Category findById(@PathVariable Long id) {
         return categoryRepository.findById(id)
-                .orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
+
     @PostMapping
-    public CategoryResponseDto create(@RequestBody CategoryCreateDto categoryCreateDto){
-        Category category=new Category();
+    public CategoryResponseDto create(@Valid @RequestBody CategoryCreateDto categoryCreateDto) {
+        Category category = new Category();
         category.setName(categoryCreateDto.getName());
 
         categoryCreateDto.getOptions().forEach(name -> {
@@ -67,16 +80,18 @@ public class CategoryController {
         return categoryMapper.categoryCreate(category);
 
     }
+
     @PutMapping("/{id}")
-    public Category update(@RequestBody Category category,@PathVariable Long id){
-        Category foundCategory=categoryRepository.findById(id)
-                .orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND));
+    public Category update(@RequestBody Category category, @PathVariable Long id) {
+        Category foundCategory = categoryRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
         foundCategory.setName(category.getName());
         categoryRepository.save(foundCategory);
         return foundCategory;
     }
+
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable Long id){
+    public void delete(@PathVariable Long id) {
         categoryRepository.deleteById(id);
     }
 }

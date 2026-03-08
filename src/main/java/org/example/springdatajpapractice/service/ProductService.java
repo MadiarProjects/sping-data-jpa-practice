@@ -21,4 +21,13 @@ public class ProductService {
         productRepository.save(product);
         return product;
     }
+
+    public void deleteById(Long productId) {
+        productRepository.deleteById(productId);
+    }
+
+    public Product findById(Long productId) {
+        return productRepository.findById(productId)
+                .orElseThrow(() -> new RuntimeException("Товар не найден"));
+    }
 }

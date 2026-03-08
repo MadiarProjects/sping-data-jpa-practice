@@ -5,6 +5,7 @@ import org.example.springdatajpapractice.model.Category;
 import org.example.springdatajpapractice.repository.CategoryRepository;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.security.InvalidParameterException;
 
@@ -24,5 +25,13 @@ public class CategoryService {
         categoryRepository.save(category);
 
         return category;
+    }
+
+    public void deleteById(Long id){
+        categoryRepository.deleteById(id);
+    }
+    public Category findById(Long id){
+        return categoryRepository.findById(id)
+                .orElseThrow(()->new RuntimeException("категория не найдена"));
     }
 }
